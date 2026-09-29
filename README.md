@@ -1,6 +1,14 @@
 # 📝 Todo Fullstack — Scalable Decoupled Architecture
 
-A modern, production-ready Fullstack Todo Management System built with a **decoupled architecture**—combining a **Next.js 16 (App Router + Turbopack)** frontend with an **Express.js RESTful API** backend.
+A modern, production-ready Fullstack Todo Management System built with a **decoupled architecture**—combining a **Next.js 16 (App Router + Turbopack)** frontend with an **Express.js RESTful Serverless API** backend deployed on **Vercel**.
+
+---
+
+## 🌐 Live Production Links
+
+* 🎨 **Live Frontend App**: [https://todo-fullstacl.vercel.app/](https://todo-fullstacl.vercel.app/)
+* ⚡ **Live Backend API**: [https://todo-fullstacl-jtlp.vercel.app/api/v1/todos](https://todo-fullstacl-jtlp.vercel.app/api/v1/todos)
+* 📚 **Interactive Swagger API Docs**: [https://todo-fullstacl-jtlp.vercel.app/api-docs](https://todo-fullstacl-jtlp.vercel.app/api-docs)
 
 ---
 
@@ -17,13 +25,13 @@ The application is engineered around a strict **Separation of Concerns (SoC)** a
                              │ REST API (JSON / JSEND)
                              ▼
 ┌─────────────────────────────────────────────────────────┐
-│               Express.js RESTful Backend                │
-│       Node.js • Swagger OpenAPI • Middleware Pipeline   │
+│           Express.js RESTful Serverless API             │
+│   Node.js • Vercel Serverless • Swagger • AppError      │
 └────────────────────────────┬────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────┐
-│                 JSON File Storage / DB                  │
+│                 JSON Persistence Layer                  │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -39,9 +47,9 @@ The application is engineered around a strict **Separation of Concerns (SoC)** a
 * **JSEND Envelope Normalization**: Data abstraction layer unwraps raw backend JSON responses into strongly-typed domain models (`Todo[]`).
 
 ### ⚙️ Backend Capabilities (`todo-api`)
-* **RESTful Endpoints**: Clean API routes (`/api/v1/todos`) adhering to HTTP verbs (`GET`, `POST`, `PATCH`, `DELETE`).
+* **RESTful Serverless Endpoints**: Clean API routes (`/api/v1/todos`) executing on Vercel Serverless Functions with 0-second cold starts.
 * **JSEND Standard JSON Specifications**: Unified response format (`{ status: "success", data: { ... } }`).
-* **Interactive Swagger OpenAPI Documentation**: Self-documenting API available at `/api-docs`.
+* **Interactive Swagger OpenAPI Documentation**: Self-documenting API available live at [`/api-docs`](https://todo-fullstacl-jtlp.vercel.app/api-docs).
 * **API Feature Pipeline**: Modular filtering, sorting, archiving, and pagination query builder.
 * **Global Error Middleware**: Centralized async error handling using custom `AppError` abstractions.
 
@@ -52,9 +60,10 @@ The application is engineered around a strict **Separation of Concerns (SoC)** a
 | Layer | Technology |
 | :--- | :--- |
 | **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS |
-| **Backend** | Node.js, Express.js, Swagger UI |
+| **Backend** | Node.js, Express.js, Swagger UI, Vercel Serverless |
 | **Architecture** | Decoupled RESTful Architecture |
 | **API Format** | JSEND Standard JSON |
+| **Hosting** | Vercel (Frontend & Serverless Backend) |
 
 ---
 
@@ -62,14 +71,16 @@ The application is engineered around a strict **Separation of Concerns (SoC)** a
 
 ```text
 todo-fullstack/
-├── todo-api/                 # Standalone Express REST API
+├── todo-api/                 # Standalone Express REST API (Vercel Serverless)
+│   ├── api/                  # Vercel serverless entrypoint (index.js)
 │   ├── controllers/          # Request handlers & logic
 │   ├── dev-data/             # JSON data persistence layer
 │   ├── models/               # Data model abstractions & file IO
 │   ├── routes/               # API route definitions
 │   ├── utils/                # API Features, AppError, Swagger
 │   ├── app.js                # Express middleware & app config
-│   ├── server.js             # Process entry point & crash handlers
+│   ├── server.js             # Local process entry point
+│   ├── vercel.json           # Vercel Serverless Routing Config
 │   └── .env.example          # Environment template
 │
 └── todo-frontend/            # Standalone Next.js 16 Web App
@@ -103,7 +114,8 @@ npm run dev
 
 ---
 
-## 🌐 Production Deployment
+## 🌐 Production Deployment Links
 
-* **Backend (`todo-api`)**: Deployed to **Render** (`https://todo-api-url.onrender.com`).
-* **Frontend (`todo-frontend`)**: Deployed to **Vercel** (`https://todo-frontend-url.vercel.app`).
+* **Frontend Web App (Vercel)**: [https://todo-fullstacl.vercel.app/](https://todo-fullstacl.vercel.app/)
+* **Backend API (Vercel Serverless)**: [https://todo-fullstacl-jtlp.vercel.app/api/v1/todos](https://todo-fullstacl-jtlp.vercel.app/api/v1/todos)
+* **Interactive Swagger OpenAPI Docs**: [https://todo-fullstacl-jtlp.vercel.app/api-docs](https://todo-fullstacl-jtlp.vercel.app/api-docs)
